@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="GameObject">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAIIAAAAAAAAAAAAKAIAACCAAAAAAAAAAAAAIEAAA=</HashCode>
+      <FileName>C:\Project\survive\include\GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="0.5" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAgACAAAAIIAAAAEAABAAwCAAQAAAQAFABA=</HashCode>
+      <FileName>C:\Project\survive\include\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameState">
+    <Position X="4.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAIIAAAAUAAgAAAIAACAAACAEIAA=</HashCode>
+      <FileName>C:\Project\survive\include\GameState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameStateManager">
+    <Position X="8.5" Y="0.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAACAEAIIYAAAAQAAAAAAAEAAAAAAgEAAQ=</HashCode>
+      <FileName>C:\Project\survive\include\GameStateManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainState">
+    <Position X="3.25" Y="4.25" Width="2.75" />
+    <NestedTypes>
+      <Typedef Name="MainState::GameObjectPtr" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Project\survive\include\MainState.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="MainState::GameObjectList" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Project\survive\include\MainState.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAABAAAAAIAAAAAAAAAAAIAAABAACAEAAA=</HashCode>
+      <FileName>C:\Project\survive\include\MainState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuState">
+    <Position X="6.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAgIAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>C:\Project\survive\include\MenuState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager">
+    <Position X="13.5" Y="0.5" Width="3.75" />
+    <NestedTypes>
+      <Struct Name="InputManager::FrameData" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Project\survive\include\InputManager.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAgIAACAAAgIIAABAQAAAAIAVAgAAgIAAEBAg=</HashCode>
+      <FileName>C:\Project\survive\include\InputManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SurviveApp">
+    <Position X="8.5" Y="4.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAgAAAAAAACAgBAIIAAgAQAAAAAAAgAAAAAAAEAAA=</HashCode>
+      <FileName>C:\Project\survive\include\SurviveApp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

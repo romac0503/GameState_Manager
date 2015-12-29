@@ -1,0 +1,53 @@
+<rml>
+	<head>
+		<title>Mainmenu</title>
+        
+        <link type="text/rcss" href="rkt.rcss"/>
+        <link type="text/rcss" href="style.rcss"/>
+		
+		<style>
+			body {
+				position: absolute;
+				height: 100%;
+				background-decorator: image;
+				background-image: bg.jpg;
+				
+				font-family: "Edit Undo BRK";
+				header-font-effect: shadow;
+				header-offset: 1px 1px;
+				header-color: black;
+				font-size:18px;
+			}
+			
+			#main {
+				width: 200px;
+				height: 180px;
+				margin-left: -100px;
+				margin-top: -90px;
+				top: 50%;
+				left: 50%;
+				position: absolute;
+				text-align: center;
+				padding: 10px;
+			}
+			
+			.button {
+				left: 0px;
+				right: 0px;
+				position: relative;
+				padding: 10px;
+				margin: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="main" class="window">
+			<h1 style="font-size: 24px; margin:10px;">Survive!</h1>
+			<div class="button border" onclick="newgame">New Game</div>
+			<div class="button border" onclick="options">Options</div>
+			<div class="button border" onclick="exit">Exit</div>
+		</div>
+	</body>
+    
+</rml>

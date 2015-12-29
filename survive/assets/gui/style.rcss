@@ -1,0 +1,175 @@
+body
+{
+	font-family: Delicious;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 15;
+	color: white;
+}
+
+body.window
+{
+    padding: 70px 10px 10px 10px;
+    background: #232323;
+    width: 390px;
+	min-width: 250px;
+	max-width: 800px;
+	
+	min-height: 135px;
+	max-height: 700px;
+}
+
+div#title_bar
+{
+	z-index: 1;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+    height: 60px;
+    background: #232323;
+    border-bottom-width: 1px;
+    border-style: solid;
+    border-color: #2E2E2E;
+    text-align: left;
+}
+
+div#title_bar #title 
+{
+    position: absolute;
+	top: 10px;
+	left: 10px;
+    font-size: 2em;
+}
+
+button
+{
+    background: red;
+    text-align: center;
+}
+
+button:hover 
+{
+    background: yellow;
+}
+
+slider {
+    position: relative;
+    background: white;
+    height: 10px;
+    width: 100px;
+    display: block;
+}
+
+slider:hover
+{
+    background: red;
+}
+
+slider_fg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: grey;
+    width: 50px;
+    height: 10px;
+}
+
+slider_handler {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: blue;
+    height: 10px;
+    width: 10px;
+    display: block;
+}
+
+slider_handlerr:hover {
+    background: red;
+}
+
+
+input.range
+{
+    background: red;
+}
+
+slidertrack
+{
+    background: white;
+}
+
+sliderbar
+{
+    background: blue;
+}
+
+select {
+    border-width: 1px;
+    border-color: white;
+}
+
+.button, .border {
+	background-decorator: tiled-box;
+	background-top-left-image: 		button.png 0px  0px 20px 20px;
+	background-top-image: 			button.png repeat-truncate  20px  0px 42px 20px;
+	background-top-right-image: 	button.png 42px  0px 72px 20px;
+	background-left-image: 			button.png repeat-truncate 0px 20px 20px 50px;
+	background-center-image: 		button.png repeat-truncate 20px 20px 52px 50px;
+	background-right-image: 		button.png repeat-truncate 42px 20px 72px 50px;
+	background-bottom-left-image:	button.png   0px 50px 20px 70px;
+	background-bottom-image: 		button.png repeat-truncate 20px 50px 62px 70px;
+	background-bottom-right-image: 	button.png  52px 50px 72px 70px;
+}
+
+.window {
+	background-decorator: tiled-box;
+	background-top-left-image: 		window.png 0px  0px 8px 8px;
+	background-top-image: 			window.png repeat-truncate  8px  0px 92px 8px;
+	background-top-right-image: 	window.png 92px  0px 100px 8px;
+	background-left-image: 			window.png repeat-truncate 0px 8px 8px 310px;
+	background-center-image: 		window.png repeat-truncate 8px 8px 92px 310px;
+	background-right-image: 		window.png repeat-truncate 92px 8px 100px 310px;
+	background-bottom-left-image:	window.png   0px 310px 8px 318px;
+	background-bottom-image: 		window.png repeat-truncate 8px 310px 92px 318px;
+	background-bottom-right-image: 	window.png  92px 310px 100px 318px;
+}
+
+.button:hover {
+	background-decorator: tiled-box;
+	background-top-left-image: 		button_hover.png 0px  0px 20px 20px;
+	background-top-image: 			button_hover.png repeat-truncate  20px  0px 42px 20px;
+	background-top-right-image: 	button_hover.png 42px  0px 72px 20px;
+	background-left-image: 			button_hover.png repeat-truncate 0px 20px 20px 50px;
+	background-center-image: 		button_hover.png repeat-truncate 20px 20px 52px 50px;
+	background-right-image: 		button_hover.png repeat-truncate 42px 20px 72px 50px;
+	background-bottom-left-image:	button_hover.png   0px 50px 20px 70px;
+	background-bottom-image: 		button_hover.png repeat-truncate 20px 50px 62px 70px;
+	background-bottom-right-image: 	button_hover.png  52px 50px 72px 70px;
+}
+
+.button:active {
+	background-decorator: tiled-box;
+	background-top-left-image: 		button_active.png 0px  0px 20px 20px;
+	background-top-image: 			button_active.png repeat-truncate  20px  0px 42px 20px;
+	background-top-right-image: 	button_active.png 42px  0px 72px 20px;
+	background-left-image: 			button_active.png repeat-truncate 0px 20px 20px 50px;
+	background-center-image: 		button_active.png repeat-truncate 20px 20px 52px 50px;
+	background-right-image: 		button_active.png repeat-truncate 42px 20px 72px 50px;
+	background-bottom-left-image:	button_active.png   0px 50px 20px 70px;
+	background-bottom-image: 		button_active.png repeat-truncate 20px 50px 62px 70px;
+	background-bottom-right-image: 	button_active.png  52px 50px 72px 70px;
+}
+
+.button:active:hover {
+	background-decorator: tiled-box;
+	background-top-left-image: 		button_active_hover.png 0px  0px 20px 20px;
+	background-top-image: 			button_active_hover.png repeat-truncate  20px  0px 42px 20px;
+	background-top-right-image: 	button_active_hover.png 42px  0px 72px 20px;
+	background-left-image: 			button_active_hover.png repeat-truncate 0px 20px 20px 50px;
+	background-center-image: 		button_active_hover.png repeat-truncate 20px 20px 52px 50px;
+	background-right-image: 		button_active_hover.png repeat-truncate 42px 20px 72px 50px;
+	background-bottom-left-image:	button_active_hover.png   0px 50px 20px 70px;
+	background-bottom-image: 		button_active_hover.png repeat-truncate 20px 50px 62px 70px;
+	background-bottom-right-image: 	button_active_hover.png  52px 50px 72px 70px;
+}
