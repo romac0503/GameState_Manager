@@ -18,9 +18,9 @@ using namespace std;
 void SurviveApp::setup()
 {
 	// following 3 lines are for opening a consol window, as this is not standard for a cinder app
-	FILE* f;
+	/*FILE* f;
 	AllocConsole();
-	freopen_s(&f, "CON", "w", stdout);
+	freopen_s(&f, "CON", "w", stdout);*/
 
 	// Initialize engine 
 	inputManager = InputManager::getInstance();
