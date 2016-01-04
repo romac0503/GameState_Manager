@@ -100,7 +100,7 @@ void AnimatedTexture::draw(ci::Vec2f pos, float rotation, int playerIdx)
 	}
 
 	// set origin to bottom-center.
-	ci::gl::translate(-m_frameSize.x / 2, m_frameSize.y);
+	ci::gl::translate(-m_frameSize.x / 2, -m_frameSize.y + (m_frameSize.y/2) - 10);		// had to adjust the position to fit inside the boundingbox
 
 	ci::Area area = calcSpriteArea(playerIdx);
 	ci::gl::draw(m_texture, area, cinder::Rectf(0,0, m_frameSize.x, m_frameSize.y));
@@ -114,6 +114,14 @@ void AnimatedTexture::calcFrameCount()
 	int frameCountY = m_texture.getHeight() / m_frameSize.y;
 
 	m_frameCount = frameCountX * frameCountY;
+}
+
+ci::Vec2f AnimatedTexture::getSpriteSize()
+{
+	float length = m_texture.getWidth() / m_frameSize.x;
+	float height = m_texture.getHeight() / m_frameSize.y;
+
+	return ci::Vec2f(length, height);
 }
 
 ci::Area AnimatedTexture::calcSpriteArea(int playerIdx)

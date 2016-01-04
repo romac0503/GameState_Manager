@@ -16,6 +16,8 @@ using namespace std;
 
 void MainState::init()
 {
+	physics = Physics::getInstance();
+
 	InputManager::getInstance()->bind("left", ci::app::KeyEvent::KEY_a, 0);
 	InputManager::getInstance()->bind("right", ci::app::KeyEvent::KEY_d, 0);
 	InputManager::getInstance()->bind("up", ci::app::KeyEvent::KEY_w, 0);
@@ -32,9 +34,9 @@ void MainState::init()
 	
 	//TODO: create Player object and add it to gameObjects
 	gameObjects.push_back(GameObjectPtr(new Background("background.png", ci::Vec2f(0,0),0)));
-	gameObjects.push_back(GameObjectPtr(new Player(ci::Vec2f(10, 10), 0, 0)));
-	gameObjects.push_back(GameObjectPtr(new Player(ci::Vec2f(300, 100), 0, 1)));
-	gameObjects.push_back(GameObjectPtr(new Tree("tree.png", ci::Vec2f(100, 200), 0)));
+	gameObjects.push_back(GameObjectPtr(new Player(ci::Vec2f(10, 100), 0, 0)));
+	gameObjects.push_back(GameObjectPtr(new Player(ci::Vec2f(100, 100), 0, 1)));
+	gameObjects.push_back(GameObjectPtr(new Tree("tree.png", ci::Vec2f(50, 100), 0)));
 
 	camera.setOrtho(-app::getWindowWidth() / 2, app::getWindowWidth() / 2, app::getWindowHeight(), 0, -100, 100);
 	camera.lookAt(Vec3f(0, 0, 1), Vec3f(0, 0, 0));
@@ -68,6 +70,8 @@ void MainState::update(float delta)
 		manager->setState("MenuState");
 	}
 
+	physics->update(delta);
+
 	for (auto gameObject : gameObjects)
 	{
 		gameObject->update(delta);
@@ -82,6 +86,7 @@ void MainState::draw()
 	for (auto gameObject : gameObjects)
 	{
 		gameObject->draw();
+		physics->draw();
 	}
 
 	gl::popMatrices();

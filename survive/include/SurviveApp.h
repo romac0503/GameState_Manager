@@ -2,6 +2,7 @@
 
 #include "cinder/app/AppNative.h"
 #include "cinder/gl/TextureFont.h"
+#include "Physics.h"
 
 class GameStateManager;
 class InputManager;
@@ -39,4 +40,5 @@ private:
 	double lastTime;
 
 	InputManager* inputManager;
+	//Physics* physics;
 };

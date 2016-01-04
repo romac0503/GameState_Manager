@@ -36,6 +36,7 @@ public:
 	void addAnimation(std::string animationName, int startIdx, int endIdx, bool flipped);
 	void setAnimation(const std::string& animation);
 	ci::Vec2f getFrameSize();
+	ci::Vec2f getSpriteSize();
 
 	void update(float delta);
 	void draw(ci::Vec2f position, float rotation, int playerIdx);

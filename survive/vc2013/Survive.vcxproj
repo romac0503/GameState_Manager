@@ -110,6 +110,7 @@
     <ResourceCompile Include="Resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\AABB.cpp" />
     <ClCompile Include="..\src\AnimatedTexture.cpp" />
     <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\Body.cpp" />
@@ -131,6 +132,7 @@
     <ClCompile Include="..\src\Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\AABB.h" />
     <ClInclude Include="..\include\AnimatedTexture.h" />
     <ClInclude Include="..\include\Background.h" />
     <ClInclude Include="..\include\Body.h" />

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "AABB.h"
+
 class Body;
 
 /// Singleton class handling a pyhsical simulation
@@ -22,6 +24,8 @@ public:
 
 	void update(float delta);
 	void draw();
+
+	void updateStep(float delta);
 
 	static Physics* getInstance();
 
@@ -54,6 +58,9 @@ private:
 
 	/// a list of all collisions in this update step.
 	std::vector<Manifold> m_manifolds;
+
+	// Accumulator for a more accurate physics calculation
+	float m_accumulator;
 
 	bool m_debugDraw;
 	bool m_resolveCollision;

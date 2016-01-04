@@ -18,9 +18,9 @@ using namespace std;
 void SurviveApp::setup()
 {
 	// following 3 lines are for opening a consol window, as this is not standard for a cinder app
-	/*FILE* f;
+	FILE* f;
 	AllocConsole();
-	freopen_s(&f, "CON", "w", stdout);*/
+	freopen_s(&f, "CON", "w", stdout);
 
 	// Initialize engine 
 	inputManager = InputManager::getInstance();
@@ -37,6 +37,9 @@ void SurviveApp::setup()
 
 	MainState* mainState = new MainState(gameStateManager.get(), this);
 	gameStateManager->registerState("MainState", mainState);
+
+	//// Create game physics
+	//physics = Physics::getInstance();
 	
 	// Jump to first game state
 	gameStateManager->setState("MenuState");
@@ -74,6 +77,9 @@ void SurviveApp::update()
 
 	// always update input first
 	inputManager->update();
+
+	//// update game physic
+	//physics->update(deltaTime);
 
 	// update game state
 	gameStateManager->update(deltaTime);

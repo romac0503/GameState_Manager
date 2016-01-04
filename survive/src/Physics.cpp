@@ -10,7 +10,9 @@ Physics::Physics():
 	m_debugDraw(false),
 	m_resolveCollision(true),
 	m_positionalCorrection(true)
-{}
+{
+	m_accumulator = 0.0f;
+}
 
 void Physics::addBody(Body* body)
 {
@@ -84,7 +86,12 @@ void Physics::resolveCollision(Body* a, Body* b, ci::Vec2f normal)
 
 void Physics::positionalCorrection(Body* a, Body* b, float penetration, const ci::Vec2f& normal)
 {
-	// TODO implement positional correction
+	const float percent = 0.2f; // usually 20% to 80%
+	const float slop = 0.01f; // usually 0.01 to 0.1
+	ci::Vec2f correction = std::max(penetration - slop, 0.0f) /
+		(a->getInvMass() + b->getInvMass()) * percent * normal;
+	a->setPosition(a->getPosition() + a->getInvMass() * correction);
+	b->setPosition(b->getPosition() - b->getInvMass() * correction);
 }
 
 
@@ -120,6 +127,7 @@ void Physics::findCollisions()
 			}
 
 			// TODO create manifold
+			
 		}
 	}
 }
@@ -158,6 +166,21 @@ void Physics::processCollisions()
 
 void Physics::update(float delta)
 {
+	// define our physics update rate
+	const float step = 1.0f / 100.0f;
+
+	m_accumulator += delta;
+
+	while (m_accumulator > step)
+	{
+		// update physics with a fixed step
+		updateStep(step);
+		m_accumulator -= step;
+	}
+}
+
+void Physics::updateStep(float delta)
+{
 	InputManager* input = InputManager::getInstance();
 
 	if (input->isKeyReleased(ci::app::KeyEvent::KEY_7))
@@ -191,13 +214,13 @@ void Physics::update(float delta)
 		// apply velocity to bodies
 		shape->setPosition(shape->getPosition() + shape->getVelocity() * delta);
 	}
-	
 }
 
 void Physics::draw()
 {
 	if (m_debugDraw)
 	{
+		//cout << "debug Draw acitve" << endl;
 		for (Manifold manifold : m_manifolds)
 		{
 			Body& body1 = *manifold.body1;
@@ -220,6 +243,10 @@ void Physics::draw()
 		{
 			body->draw();
 		}
+	}
+	else
+	{
+		//cout << "debug Draw not active" << endl;
 	}
 }
 

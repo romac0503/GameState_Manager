@@ -3,6 +3,8 @@
 #include "GameState.h"
 #include "cinder\Camera.h"
 #include <vector>
+#include "Physics.h"
+#include "Body.h"
 
 class GameObject;
 
@@ -26,4 +28,6 @@ private:
 
 	GameObjectList gameObjects;
 	ci::CameraOrtho camera;
+
+	Physics* physics;
 };
