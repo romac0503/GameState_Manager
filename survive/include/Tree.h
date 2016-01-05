@@ -1,16 +1,16 @@
 #pragma once
 
 #include "GameObject.h"
-#include "cinder/app/App.h"
-#include "cinder/ImageIo.h"
-#include "cinder/gl/Texture.h"
+#include "StdAfx.h"
+#include "AnimatedTexture.h"
 
 class Body;
 
 class Tree : public GameObject
 {
 private: 
-	ci::gl::Texture m_texture;
+	//ci::gl::Texture m_texture;
+	std::shared_ptr<AnimatedTexture> m_texture;
 	std::shared_ptr<Body> m_body;
 
 public:

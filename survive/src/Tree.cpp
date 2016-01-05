@@ -1,12 +1,17 @@
 #include "Tree.h"
+#include "Body.h"
+
+using namespace ci;
 
 Tree::Tree(std::string fileName, const ci::Vec2f& pos, float rot) : GameObject(pos, rot)
 {
 	try
 	{
-		m_texture = ci::gl::Texture(ci::loadImage(ci::app::loadAsset(fileName)));
-		/*Rectf box(0, 0, m_texture.getWidth(), m_texture.getHeight());
-		collisionBox = new AABB(box);*/
+		//m_texture = ci::gl::Texture(ci::loadImage(ci::app::loadAsset(fileName)));
+		m_texture = std::shared_ptr<AnimatedTexture>(new AnimatedTexture(fileName, ci::Vec2f(110.0f, 96.0f), 0));
+		Rectf bounds(position - Vec2f(55, 55), position + Vec2f(55, 40));
+		m_body = std::shared_ptr<Body>(new Body(bounds, 0.0f, this));
+		
 	}
 	catch (...)
 	{
@@ -27,15 +32,18 @@ void Tree::update(float delta)
 
 void Tree::draw()
 {
-	ci::gl::pushMatrices();
+	gl::pushModelView();
+	{
+		m_texture->draw(position, rotation, 0);
+	}
+	gl::popModelView();
 
-	ci::gl::translate(position);
-	ci::gl::rotate(rotation);
+	//ci::gl::pushMatrices();
 
-	// set origin to bottom-center.
-	
-	ci::gl::draw(m_texture, ci::Area(0, 0, m_texture.getSize().x, m_texture.getSize().y), cinder::Rectf(position.x, position.y,position.x + m_texture.getSize().x, position.y + m_texture.getSize().y));
-	//collisionBox->draw(position);
+	///*ci::gl::translate(position);
+	//ci::gl::rotate(rotation);*/
 
-	ci::gl::popMatrices();
+	//ci::gl::draw(m_texture, ci::Area(0, 0, m_texture.getSize().x, m_texture.getSize().y), cinder::Rectf(position.x, position.y, position.x + m_texture.getSize().x, position.y + m_texture.getSize().y));
+
+	//ci::gl::popMatrices();
 }

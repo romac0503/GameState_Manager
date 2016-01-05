@@ -38,8 +38,6 @@ Player::Player(const ci::Vec2f& _position, float _rotation, int _playerIdx) :
 	Rectf bounds(position - Vec2f(30.0f, 30.0f), 
 		position + Vec2f(30.0f, 30.0f));
 	m_body = std::shared_ptr<Body>(new Body(bounds, 1.0f, this));
-	Rectf playerBox(m_texture->getFrameSize(), m_texture->getFrameSize());
-	//collisionBox = new AABB(playerBox);
 }
 
 Player::~Player()
@@ -136,8 +134,6 @@ void Player::draw()
 {
 	gl::pushModelView();
 	{
-		//collisionBox->draw(position);
-		/*m_body->draw();*/
 		m_texture->draw(position, rotation, playerIdx);
 		//gl::drawSolidCircle(Vec2f(0, 0), 5, 5);
 	}

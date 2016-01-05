@@ -6,7 +6,7 @@
 
 using namespace ci;
 
-Physics::Physics():
+Physics::Physics() :
 	m_debugDraw(false),
 	m_resolveCollision(true),
 	m_positionalCorrection(true)
@@ -33,15 +33,18 @@ bool Physics::AABBvsAABB(const ci::Rectf& a, const ci::Rectf& b, ci::Vec2f& norm
 	float x_overlap = a_extent + b_extent - abs(n.x);		// Calculate overlap on x axis
 
 	// SAT test on x axis
-	if (x_overlap > 0) {
+	if (x_overlap > 0)
+	{
 		float a_extent = (a.getY2() - a.getY1()) / 2;		// Calculate half extents along y axis
 		float b_extent = (b.getY2() - b.getY1()) / 2;
 		float y_overlap = a_extent + b_extent - abs(n.y);	// Calculate overlap on y axis
 
 		// SAT test on y axis
-		if (y_overlap > 0) {
+		if (y_overlap > 0)
+		{
 			// Find out which axis is axis of least penetration
-			if (x_overlap < y_overlap) {
+			if (x_overlap < y_overlap)
+			{
 				// Point towards B knowing that n points from A to B
 				if (n.x < 0)
 					normal = ci::Vec2f(1, 0);
@@ -50,7 +53,8 @@ bool Physics::AABBvsAABB(const ci::Rectf& a, const ci::Rectf& b, ci::Vec2f& norm
 				penetration = x_overlap;
 				return true;
 			}
-			else {
+			else
+			{
 				// Point toward B knowing that n points from A to B
 				if (n.y < 0)
 					normal = ci::Vec2f(0, 1);
@@ -66,21 +70,24 @@ bool Physics::AABBvsAABB(const ci::Rectf& a, const ci::Rectf& b, ci::Vec2f& norm
 
 void Physics::resolveCollision(Body* a, Body* b, ci::Vec2f normal)
 {
-	// Calculate relative velocity
-	ci::Vec2f rv = b->getVelocity() - a->getVelocity();
+	if (a->getMass() != 0.0 && b->getMass() != 0)
+	{
+		// Calculate relative velocity
+		ci::Vec2f rv = b->getVelocity() - a->getVelocity();
 
-	// Calculate relative velocity in terms of the normal direction
-	float velAlongNormal = rv.dot(normal);
+		// Calculate relative velocity in terms of the normal direction
+		float velAlongNormal = rv.dot(normal);
 
-	// Do not resolve if velocities are separating
-	if (velAlongNormal < 0)
-		return;
+		// Do not resolve if velocities are separating
+		if (velAlongNormal < 0)
+			return;
 
-	// Apply impulse
-	ci::Vec2f impulse = velAlongNormal * normal;
+		// Apply impulse
+		ci::Vec2f impulse = velAlongNormal * normal;
 
-	a->setVelocity(a->getVelocity() + 0.5f * impulse);
-	b->setVelocity(b->getVelocity() - 0.5f * impulse);
+		a->setVelocity(a->getVelocity() + 0.5f * impulse);
+		b->setVelocity(b->getVelocity() - 0.5f * impulse);
+	}
 }
 
 
@@ -127,7 +134,7 @@ void Physics::findCollisions()
 			}
 
 			// TODO create manifold
-			
+
 		}
 	}
 }

@@ -36,7 +36,7 @@ void MainState::init()
 	gameObjects.push_back(GameObjectPtr(new Background("background.png", ci::Vec2f(0,0),0)));
 	gameObjects.push_back(GameObjectPtr(new Player(ci::Vec2f(10, 100), 0, 0)));
 	gameObjects.push_back(GameObjectPtr(new Player(ci::Vec2f(100, 100), 0, 1)));
-	gameObjects.push_back(GameObjectPtr(new Tree("tree.png", ci::Vec2f(50, 100), 0)));
+	gameObjects.push_back(GameObjectPtr(new Tree("tree.png", ci::Vec2f(50, 200), 0)));
 
 	camera.setOrtho(-app::getWindowWidth() / 2, app::getWindowWidth() / 2, app::getWindowHeight(), 0, -100, 100);
 	camera.lookAt(Vec3f(0, 0, 1), Vec3f(0, 0, 0));
