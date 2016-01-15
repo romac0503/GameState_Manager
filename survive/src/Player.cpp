@@ -37,7 +37,8 @@ Player::Player(const ci::Vec2f& _position, float _rotation, int _playerIdx) :
 
 	Rectf bounds(position - Vec2f(30.0f, 30.0f), 
 		position + Vec2f(30.0f, 30.0f));
-	m_body = std::shared_ptr<Body>(new Body(bounds, 1.0f, this));
+	Circle radius(position, 30);
+	m_body = std::shared_ptr<Body>(new Body(bounds, radius, 1.0f, this));
 }
 
 Player::~Player()
@@ -122,7 +123,6 @@ void Player::update(float delta)
 	}
 
 	m_texture->update(delta);
-
 	m_body->setVelocity(steering * PLAYER_SPEED);
 	position = m_body->getPosition();
 	linearVelocity = steering * PLAYER_SPEED;
@@ -135,7 +135,6 @@ void Player::draw()
 	gl::pushModelView();
 	{
 		m_texture->draw(position, rotation, playerIdx);
-		//gl::drawSolidCircle(Vec2f(0, 0), 5, 5);
 	}
 	gl::popModelView();
 }

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "AABB.h"
+#include "Circle.h"
+#include "GlobalVariables.h"
 
 class Body;
 
@@ -41,6 +42,8 @@ private:
 	/// \penetration set with the collision penetration depth of the two bodies along the collision normal.
 	bool AABBvsAABB(const ci::Rectf& a, const ci::Rectf& b, ci::Vec2f& normal, float& penetration);
 
+	bool circleVsCircle(const Circle& a, const Circle& b, ci::Vec2f& normal, float& penetration);
+
 	/// Finds all collision and stores collision information to the manifold list.
 	void findCollisions();
 
@@ -52,6 +55,12 @@ private:
 
 	/// Linear positional corrections of overlapping bodies.
 	void positionalCorrection(Body* a, Body* b, float penetrationDepth, const ci::Vec2f& normal);
+
+	/// Draws the positional correction after collision
+	void drawPosCorrection(Body& body1, Body& body2);
+
+	/// Draws the Vec2 when Player colliding
+	void drawColResolving(Body& body1, Body& body2);
 	
 	/// a list of all bodies in the world
 	std::vector<Body*> m_bodies;
@@ -65,4 +74,13 @@ private:
 	bool m_debugDraw;
 	bool m_resolveCollision;
 	bool m_positionalCorrection;
+	bool m_circleCollision;
+
+	// Vec2f for collision resolving
+	/*Vec2f m_collResolving1;
+	Vec2f m_collResolving2;*/
+
+	// Vec2f for positional correction
+	/*Vec2f m_posCorrection1;
+	Vec2f m_posCorrection2;*/
 };

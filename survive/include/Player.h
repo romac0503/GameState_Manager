@@ -5,7 +5,7 @@
 #include "cinder/app/App.h"
 #include "cinder/ImageIo.h"
 #include "AnimatedTexture.h"
-#include "AABB.h"
+#include "Circle.h"
 
 class Body;
 
@@ -29,7 +29,6 @@ private:
 
 	enum Direction { LEFT, RIGHT, UP, DOWN, DIGGING, FIGHT };
 
-	//AABB* collisionBox;
 	int playerIdx;
 	std::string animation;
 

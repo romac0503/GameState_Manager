@@ -3,13 +3,15 @@
 #include "Body.h"
 #include "InputManager.h"
 #include "GameObject.h"
+#include <math.h>
 
 using namespace ci;
 
 Physics::Physics() :
 	m_debugDraw(false),
 	m_resolveCollision(true),
-	m_positionalCorrection(true)
+	m_positionalCorrection(true),
+	m_circleCollision(true)
 {
 	m_accumulator = 0.0f;
 }
@@ -68,9 +70,37 @@ bool Physics::AABBvsAABB(const ci::Rectf& a, const ci::Rectf& b, ci::Vec2f& norm
 	return false;
 }
 
+bool Physics::circleVsCircle(const Circle& a, const Circle& b, ci::Vec2f& normal, float& penetration)
+{
+	ci::Vec2f n = b.position - a.position;			// Vector from A to B
+	float n_sqrt = n.lengthSquared();
+	float r_sqrt = pow(a.radius + b.radius, 2);
+
+	float overlap = 0.0;
+
+	if (n_sqrt < r_sqrt)
+	{
+		overlap = abs(n_sqrt - r_sqrt);
+		overlap = sqrt(overlap);
+	}
+	//std::cout << "overlap = " << overlap << std::endl;
+
+	// SAT test 
+	if (overlap > 0)
+	{
+		ci::Vec2f n_norm = n;
+		n_norm.normalize();
+		normal.x = n_norm.x * (-1);
+		normal.y = n_norm.y * (-1);
+		penetration = overlap;
+		return true;
+	}
+	return false;
+}
+
 void Physics::resolveCollision(Body* a, Body* b, ci::Vec2f normal)
 {
-	if (a->getMass() != 0.0 && b->getMass() != 0)
+	if (a->getMass() != 0.0 && b->getMass() != 0.0)
 	{
 		// Calculate relative velocity
 		ci::Vec2f rv = b->getVelocity() - a->getVelocity();
@@ -80,7 +110,10 @@ void Physics::resolveCollision(Body* a, Body* b, ci::Vec2f normal)
 
 		// Do not resolve if velocities are separating
 		if (velAlongNormal < 0)
+		{
 			return;
+		}
+
 
 		// Apply impulse
 		ci::Vec2f impulse = velAlongNormal * normal;
@@ -93,12 +126,39 @@ void Physics::resolveCollision(Body* a, Body* b, ci::Vec2f normal)
 
 void Physics::positionalCorrection(Body* a, Body* b, float penetration, const ci::Vec2f& normal)
 {
-	const float percent = 0.2f; // usually 20% to 80%
-	const float slop = 0.01f; // usually 0.01 to 0.1
-	ci::Vec2f correction = std::max(penetration - slop, 0.0f) /
+	float percent;
+	float slop;
+
+	if (m_circleCollision)
+	{
+		percent = 0.018f; 
+		slop = 0.01f; 
+	}
+	else
+	{
+		percent = 0.2f; // usually 20% to 80%
+		slop = 0.01f; // usually 0.01 to 0.1
+	}
+	
+	ci::Vec2f correction = std::max(penetration - slop, 0.0f) /		// TODO draw correction by key
 		(a->getInvMass() + b->getInvMass()) * percent * normal;
-	a->setPosition(a->getPosition() + a->getInvMass() * correction);
-	b->setPosition(b->getPosition() - b->getInvMass() * correction);
+
+	if (m_circleCollision)
+	{
+		Vec2f vA = a->getPosition() + a->getInvMass() * correction;
+		Vec2f vB = b->getPosition() - b->getInvMass() * correction;
+
+		a->setPosition(vA);
+		b->setPosition(vB);
+	}
+	else
+	{
+		Vec2f vA = a->getPosition() + a->getInvMass() * correction;
+		Vec2f vB = b->getPosition() - b->getInvMass() * correction;
+
+		a->setPosition(vA);
+		b->setPosition(vB);
+	}
 }
 
 
@@ -120,21 +180,34 @@ void Physics::findCollisions()
 
 			Vec2f normal;
 			float penetration;
+			Manifold manifold;
 
-			if (AABBvsAABB(shape1->getBoundingBox(), shape2->getBoundingBox(),
-				normal, penetration))
+			if (m_circleCollision)
 			{
-				Manifold manifold;
-				manifold.body1 = shape1;
-				manifold.body2 = shape2;
-				manifold.normal = normal;
-				manifold.penetration = penetration;
+				if (circleVsCircle(shape1->getCollRadius(), shape2->getCollRadius(),
+					normal, penetration))
+				{
+					manifold.body1 = shape1;
+					manifold.body2 = shape2;
+					manifold.normal = normal;
+					manifold.penetration = penetration;
 
-				m_manifolds.push_back(manifold);
+					m_manifolds.push_back(manifold);
+				}
 			}
+			else
+			{
+				if (AABBvsAABB(shape1->getBoundingBox(), shape2->getBoundingBox(),
+					normal, penetration))
+				{
+					manifold.body1 = shape1;
+					manifold.body2 = shape2;
+					manifold.normal = normal;
+					manifold.penetration = penetration;
 
-			// TODO create manifold
-
+					m_manifolds.push_back(manifold);
+				}
+			}
 		}
 	}
 }
@@ -190,6 +263,11 @@ void Physics::updateStep(float delta)
 {
 	InputManager* input = InputManager::getInstance();
 
+	if (input->isKeyReleased(ci::app::KeyEvent::KEY_6))
+	{
+		m_circleCollision = !m_circleCollision;
+	}
+
 	if (input->isKeyReleased(ci::app::KeyEvent::KEY_7))
 	{
 		m_debugDraw = !m_debugDraw;
@@ -223,6 +301,18 @@ void Physics::updateStep(float delta)
 	}
 }
 
+void Physics::drawColResolving(Body& body1, Body& body2)
+{
+	gl::lineWidth(1.0f);
+	ci::gl::color(ci::Color(0, 0, 200));
+}
+
+void Physics::drawPosCorrection(Body& body1, Body& body2)
+{
+	gl::lineWidth(1.0f);
+	ci::gl::color(ci::Color(0, 200, 0));
+}
+
 void Physics::draw()
 {
 	if (m_debugDraw)
@@ -243,17 +333,22 @@ void Physics::draw()
 			ci::gl::drawLine(body2.getPosition(), body2.getPosition() + manifold.normal * manifold.penetration);
 			gl::lineWidth(1.0f);
 
+			// TODO draw Collision resolving
+			//drawColResolving(body1, body2);
+
+			// TODO draw Positional correction
+			//drawPosCorrection(body1, body2);
+
 			ci::gl::color(ci::Color(255, 255, 255));
 		}
 
 		for (Body* body : m_bodies)
 		{
-			body->draw();
+			if (m_circleCollision)
+				body->drawCircle();
+			else
+				body->drawBoundingBox();
 		}
-	}
-	else
-	{
-		//cout << "debug Draw not active" << endl;
 	}
 }
 

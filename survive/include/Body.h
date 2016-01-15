@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Circle.h"
+
 class GameObject;
 
 class Body
@@ -9,7 +11,7 @@ public:
 	/// \boundingBox the bounds of the body with the position in the center of the rectangle.
 	/// \mass the mass of the body. 0 for static objects which shouldn't be moved.
 	/// \gameObject a blank pointer to the GameObject.
-	Body(const ci::Rectf& boundingBox, float mass, GameObject* gameObject = nullptr);
+	Body(const ci::Rectf& boundingBox, const Circle& collRadius, float mass, GameObject* gameObject = nullptr);
 	~Body();
 
 	void setBoundingBox(const ci::Rectf& boundingBox)
@@ -17,14 +19,25 @@ public:
 		m_boundingBox = boundingBox;
 	}
 
+	void setCollisionRadius(const Circle& radius)
+	{
+		m_circle = radius;
+	}
+
 	const ci::Rectf& getBoundingBox() const
 	{
 		return m_boundingBox;
 	}
 
+	const Circle& getCollRadius() const
+	{
+		return m_circle;
+	}
+
 	void setPosition(const ci::Vec2f& position)
 	{
 		m_boundingBox.offsetCenterTo(position);
+		m_circle.position = position;
 	}
 
 	ci::Vec2f getPosition() const
@@ -56,6 +69,10 @@ public:
 
 	void draw();
 
+	void drawBoundingBox();
+
+	void drawCircle();
+
 	GameObject* getGameObject()
 	{
 		return m_gameObject;
@@ -64,6 +81,11 @@ public:
 private:
 	/// boundingbox of the body
 	ci::Rectf m_boundingBox;
+
+	bool m_drawCircle;
+
+	/// collision radius of the body
+	Circle m_circle;
 
 	/// velocity of the body
 	ci::Vec2f m_velocity;

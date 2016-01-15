@@ -10,7 +10,8 @@ Tree::Tree(std::string fileName, const ci::Vec2f& pos, float rot) : GameObject(p
 		//m_texture = ci::gl::Texture(ci::loadImage(ci::app::loadAsset(fileName)));
 		m_texture = std::shared_ptr<AnimatedTexture>(new AnimatedTexture(fileName, ci::Vec2f(110.0f, 96.0f), 0));
 		Rectf bounds(position - Vec2f(55, 55), position + Vec2f(55, 40));
-		m_body = std::shared_ptr<Body>(new Body(bounds, 0.0f, this));
+		Circle circle(position, 55);
+		m_body = std::shared_ptr<Body>(new Body(bounds, circle, 0.0f, this));
 		
 	}
 	catch (...)

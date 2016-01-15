@@ -1,14 +1,14 @@
 #include "StdAfx.h"
 #include "Body.h"
-
 #include "cinder/CinderMath.h"
 #include "Physics.h"
 #include <algorithm>
 
-Body::Body(const ci::Rectf& boundingBox, float mass, GameObject* gameObject) :
+Body::Body(const ci::Rectf& boundingBox, const Circle& collRadius, float mass, GameObject* gameObject) :
 	m_mass(mass),
 	m_invMass(1.0f),
 	m_boundingBox(boundingBox),
+	m_circle(collRadius),
 	m_gameObject(gameObject)
 {
 	setMass(m_mass);
@@ -36,7 +36,26 @@ void Body::setMass(float mass)
 
 void Body::draw()
 {
+	if (m_drawCircle)
+	{
+		ci::gl::drawStrokedCircle(m_circle.position, m_circle.radius);
+	}
+	else
+	{
+		ci::gl::drawStrokedRect(m_boundingBox);
+	}
+	ci::gl::color(ci::Color(255, 255, 255));
+}
+
+void Body::drawBoundingBox()
+{
 	ci::gl::drawStrokedRect(m_boundingBox);
+	ci::gl::color(ci::Color(255, 255, 255));
+}
+
+void Body::drawCircle()
+{
+	ci::gl::drawStrokedCircle(m_circle.position, m_circle.radius);
 	ci::gl::color(ci::Color(255, 255, 255));
 }
 
