@@ -3,8 +3,6 @@
 #include <iostream>
 #include "NLTmxMap.h"
 
-
-
 using namespace rapidxml;
 
 NLTmxMapTileset* NLTmxMap::getTilesetForGrid(int grid)
@@ -49,7 +47,7 @@ NLTmxMap* NLLoadTmxMap( char *xml )
         tileset->tileHeight = atoi( tilesetnode->first_attribute( "tileheight" )->value() );
         tileset->filename = tilesetnode->first_node( "image" )->first_attribute( "source" )->value();
         
-        //cout << "Tileset " << tileset->name << " filename " << tileset->filename << endl;
+        cout << "Tileset " << tileset->name << " filename " << tileset->filename << endl;
         
         map->tilesets.push_back( tileset );
         
@@ -107,7 +105,7 @@ NLTmxMap* NLLoadTmxMap( char *xml )
             group->visible = true;
         }
         
-        //cout << "group " << group->name << endl;
+        cout << "group " << group->name << endl;
         
         xml_node<> *objectnode = objectgroupnode->first_node( "object" );
         
